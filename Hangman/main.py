@@ -1,12 +1,14 @@
 # Modules
-import  outputDisplay
+import outputDisplay
 # Other Modules
-from tkinter import *
+import tkinter as tk
+#
+# root = Tk()
+#
+# run = outputDisplay.MainMenu()
+#
+# root.mainloop()
 
-
-
-outputDisplay.display()
-
-
-
+app = outputDisplay.MainMenu()
+app.mainloop()
 
