@@ -4,10 +4,7 @@ import randomwordgenerator as rwg
 import userInput as ui
 import outputDisplay as od
 import process as p
-
-num_words = 20
-x = rwg.generate_random_words(n = num_words)
-print(x)
+import sys
 
 file = open("wordlist.txt","r")
 wordList = file.read().split(",")
@@ -20,7 +17,18 @@ length_word = len(secretWord)
 alphabet = "abcdefghijklmnopqrstuvwxyz"
 letter_storage = []
 
-play = ui.Menu()
+name = ui.Introduction()
 
-if play == "y":
-    ui.Menu()
+while True:
+    play = ui.Menu(name)
+    if play == "n":
+        print("Closing Down Program")
+        sys.exit()
+
+    elif play == "y":
+        print("Let's Start!")
+        continue
+
+    else:
+        print("Please enter either y/n.")
+        continue
