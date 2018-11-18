@@ -1,11 +1,11 @@
 from random_word import RandomWords
 
 
-
 def set_player_name():
     playerName = input("PlayerName: ")
-
     return playerName
+
+
 def random_word():
     r = RandomWords()
 
