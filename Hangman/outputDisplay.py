@@ -173,9 +173,19 @@ class GamePlay(tk.Frame):
         label = tk.Label(self, text="GAME PLAY HERE", font=LARGE_FONT, fg="red")
         label.pack(pady=10,padx=10)
 
-        randomWord = process.random_word()
+        getWord = process.get_word()
+
+        randomWord = process.process_word(getWord)
+
         label = tk.Label(self, text=randomWord, fg="blue")
         label.pack()
+
+        e = Entry(self)
+        e.pack()
+
+        submitButton = Button(self, text="Submit")
+
+        submitButton.pack()
 
 
 

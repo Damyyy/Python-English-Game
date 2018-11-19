@@ -17,23 +17,22 @@ dictionary = PyDictionary()
 # r.word_of_the_day()
 
 
-
-
-def random_word():
-
+def get_word():
     r = RandomWords()
+    w = r.get_random_word()
+    return w
 
-    word = r.get_random_word()
-    print(word)
-    # word2 = r.get_random_word(hasDictionaryDef="true", includePartOfSpeech="noun,verb", minCorpusCount=1, maxCorpusCount=10, minDictionaryCount=1, maxDictionaryCount=10, minLength=5, maxLength=10)
+
+def process_word(word):
+    word = word
     length = len(word)
     toList = list(word)
-    processedWord = ""
 
-    for i in range(length // 2):
-        randomNumber = random.randint(1, length)
-        toList[randomNumber] = "_"
+    emptyWord = []
 
-    processedWord = "".join(toList)
+    for i in range(length):
+        emptyWord.append("_ ")
+
+    processedWord = "".join(emptyWord)
 
     return processedWord
