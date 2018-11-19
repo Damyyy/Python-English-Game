@@ -175,15 +175,15 @@ class GamePlay(tk.Frame):
 
         getWord = process.get_word()
 
-        randomWord = process.process_word(getWord)
+        randomWordEmpty,word = process.process_word(getWord)
 
-        label = tk.Label(self, text=randomWord, fg="blue")
+        label = tk.Label(self, text=randomWordEmpty, fg="blue")
         label.pack()
 
         e = Entry(self)
         e.pack()
 
-        submitButton = Button(self, text="Submit")
+        submitButton = Button(self, text="Submit", command=lambda: process.check_word(word, "a"))
 
         submitButton.pack()
 

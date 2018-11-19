@@ -1,13 +1,6 @@
 from random_word import RandomWords
 import random
 
-
-from PyDictionary import PyDictionary
-
-dictionary = PyDictionary()
-
-
-
 #
 # # Return a single random word
 # r.get_random_word()
@@ -35,4 +28,20 @@ def process_word(word):
 
     processedWord = "".join(emptyWord)
 
-    return processedWord
+    return processedWord, word
+
+
+
+def check_word(word, guess):
+    marks = 0
+
+    if guess in word:
+        marks += 1
+
+    print(marks)
+    return marks
+
+
+
+
+
