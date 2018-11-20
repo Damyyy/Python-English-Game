@@ -1,17 +1,4 @@
 from random_word import RandomWords
-import random
-
-#
-# # Return a single random word
-# r.get_random_word()
-# # Return list of Random words
-# r.get_random_words()
-# # Return Word of the day
-# r.word_of_the_day()
-
-
-
-
 
 
 
@@ -25,7 +12,7 @@ class logic(object):
     correct = []
     wrong = []
     points = 0
-    
+
     def __init__(self):
         # Word Related
         self.word = ""
@@ -39,7 +26,7 @@ class logic(object):
     def get_word(self):
         r = RandomWords()
         w = r.get_random_word()
-        self.word = w
+        self.word = w.lower()
         print(self.word)
 
 
@@ -54,8 +41,6 @@ class logic(object):
         self.blanked = processedWord
 
 
-
-
     def check_letter(self, letterGuess):
         if letterGuess not in self.wrong and letterGuess not in self.correct:
             if letterGuess in self.word:
@@ -66,6 +51,22 @@ class logic(object):
 
 
         print(self.points)
+        print(self.correct)
+        print(self.wrong)
+        self.rebuild_blankedWord()
+
+    def rebuild_blankedWord(self):
+
+        toList = list(self.blanked)
+        wordToList = list(self.word)
+
+        for i in range(self.wordLength):
+            if wordToList[i] in self.correct:
+                toList[i * 2] = wordToList[i]
+
+        self.blanked = "".join(toList)
+        print(self.blanked)
+
 
 
 
