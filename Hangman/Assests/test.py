@@ -5,7 +5,7 @@ from PIL import ImageTk, Image
 app_root = Tk()
 
 #Setting it up
-hangfamily = ImageTk.PhotoImage(Image.open("Hangfamily.png"))
+hangfamily = ImageTk.PhotoImage(Image.open("Hang Family.png"))
 img = ImageTk.PhotoImage(Image.open("Image 1.png"))
 img1 = ImageTk.PhotoImage(Image.open("Image 2.png"))
 #Displaying it
