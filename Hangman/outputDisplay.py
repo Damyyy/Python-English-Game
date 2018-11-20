@@ -173,17 +173,25 @@ class GamePlay(tk.Frame):
         label = tk.Label(self, text="GAME PLAY HERE", font=LARGE_FONT, fg="red")
         label.pack(pady=10,padx=10)
 
-        getWord = process.get_word()
 
-        randomWordEmpty,word = process.process_word(getWord)
 
-        label = tk.Label(self, text=randomWordEmpty, fg="blue")
+
+        # Instance
+
+        logic = process.logic()
+        logic.get_word()
+        logic.process_word()
+        blankedWord = logic.blanked
+        label = tk.Label(self, text=blankedWord, fg="blue")
         label.pack()
+
 
         e = Entry(self)
         e.pack()
 
-        submitButton = Button(self, text="Submit", command=lambda: process.check_word(word, "a"))
+
+
+        submitButton = Button(self, text="Submit", command=lambda: logic.check_letter(e.get() ))
 
         submitButton.pack()
 
