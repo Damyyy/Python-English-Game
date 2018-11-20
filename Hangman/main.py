@@ -1,17 +1,14 @@
 # Modules
 import outputDisplay
+from pygame import mixer
+
+
+
 # Other Modules
 
-import tkinter as tk
-import asyncio
-from random_word import RandomWords
-
-
-# root = Tk()
-#
-# run = outputDisplay.MainMenu()
-#
-# root.mainloop()
+mixer.init()
+mixer.music.load('sound.mp3')
+mixer.music.play()
 
 app = outputDisplay.MainMenu()
 app.mainloop()
