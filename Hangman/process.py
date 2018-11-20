@@ -4,14 +4,14 @@ from random_word import RandomWords
 
 class logic(object):
 
-    word = ""
-    blanked = ""
-    wordLength = 0
-
-    guessed = []
-    correct = []
-    wrong = []
-    points = 0
+    # word = ""
+    # blanked = ""
+    # wordLength = 0
+    #
+    # guessed = []
+    # correct = []
+    # wrong = []
+    # points = 0
 
     def __init__(self):
         # Word Related
@@ -22,6 +22,7 @@ class logic(object):
         self.guessed = []
         self.correct = []
         self.wrong = []
+        self.points = 0
 
     def get_word(self):
         r = RandomWords()

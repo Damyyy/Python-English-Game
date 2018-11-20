@@ -8,7 +8,7 @@ from pygame import mixer
 
 mixer.init()
 mixer.music.load('sound.mp3')
-mixer.music.play()
+mixer.music.play(loops=-1)
 
 app = outputDisplay.MainMenu()
 app.mainloop()

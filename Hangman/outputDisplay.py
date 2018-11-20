@@ -181,17 +181,26 @@ class GamePlay(tk.Frame):
         logic = process.logic()
         logic.get_word()
         logic.process_word()
-        blankedWord = logic.blanked
-        label = tk.Label(self, text=blankedWord, fg="blue")
-        label.pack()
+        print(logic.blanked)
 
+        # label = tk.Label(self, text=logic.blanked, fg="blue")
+        # label.pack()
+        v = StringVar()
+        Label(self, textvariable=v).pack()
+
+        v.set(logic.blanked)
 
         e = Entry(self)
         e.pack()
 
+        def rebuild():
+            logic.check_letter(e.get())
+            # label = tk.Label(self, text=logic.blanked, fg="blue")
+            # label.pack()
+            v.set(logic.blanked)
 
 
-        submitButton = Button(self, text="Submit", command=lambda: logic.check_letter(e.get() ))
+        submitButton = Button(self, text="Submit", command=rebuild)
 
         submitButton.pack()
 
