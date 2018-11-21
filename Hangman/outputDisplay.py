@@ -3,69 +3,7 @@ import tkinter as tk
 from tkinter import *
 
 
-import  process
-
-
-
-# def display():
-#
-#
-#     root = Tk()
-#     frame1 = Frame(root)
-#     frame1.pack()
-#     frame2 = Frame(root)
-#     frame2.pack(side=BOTTOM)
-#     theLabel = Label(frame1, text="This is hangman", fg="red")
-#     theLabel.pack(fill=X)
-#
-#
-#     button1 = Button(frame2, text="Start Game", fg="red")
-#     button2 = Button(frame2, text="View High scores", fg="red")
-#     button3 = Button(frame2, text="Instructions", fg="red")
-#
-#     button1.pack()
-#     button2.pack()
-#     button3.pack()
-#     root.mainloop()
-#
-#
-#
-# class MainMenu(tkinter.Tk):
-#     def __init__(self, master):
-#         master = master
-#         frame = Frame(master)
-#         frame.pack()
-#         self.gameTitle = Label(frame, text="Hang Me", fg="red")
-#         self.gameTitle.pack()
-#         self.button1 = Button(frame, text="Start Game", fg="red", command=self.start_game)
-#         self.button1.pack()
-#         self.button2 = Button(frame, text="Scores", fg="red", command=self.view_scores)
-#         self.button2.pack()
-#         self.button3 = Button(frame, text="Instructions", fg="red", command=self.view_instructions)
-#         self.button3.pack()
-#
-#
-#     def start_game(self):
-#         print("Start game Tapped")
-#         run = GamePlay
-#
-#
-#     def view_scores(self):
-#         print("view scores tapped")
-#
-#     def view_instructions(self):
-#         print("View instructions tapped")
-#
-#
-#
-#
-# class GamePlay:
-#     def __init__(self, master):
-#         frame = Frame(master)
-#         frame.pack()
-#         self.gameTitle = Label(frame, text="Game Play Here", fg="red")
-#         self.gameTitle.pack()
-#
+import process
 
 
 
@@ -77,12 +15,16 @@ class MainMenu(tk.Tk):
     def __init__(self, *args, **kwargs):
 
         tk.Tk.__init__(self, *args, **kwargs)
+
+
         container = tk.Frame(self)
 
-        container.pack(side="top", fill="both", expand = True)
+        # container.pack(side="top", fill="both", expand = True)
+        container.pack()
+        # container.pack_propagate(0)
 
-        container.grid_rowconfigure(0, weight=1)
-        container.grid_columnconfigure(0, weight=1)
+        # container.grid_rowconfigure(0, weight=1)
+        # container.grid_columnconfigure(0, weight=1)
 
         self.frames = {}
 
@@ -107,16 +49,16 @@ class StartPage(tk.Frame):
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self,parent)
-        label = tk.Label(self, text="HANG FAMILY", font=LARGE_FONT, fg="red")
+        label = tk.Label(self, text="THE HARDEST WORD GAME EVER", font=LARGE_FONT, fg="red")
         label.pack(pady=10,padx=10)
 
         button = tk.Button(self, text="Play Game",
                            command=lambda: controller.show_frame(UserNamePage))
-        button.pack()
+        button.pack(pady=30,padx=30)
 
         button2 = tk.Button(self, text="View Scores",
                             command=lambda: controller.show_frame(PageTwo))
-        button2.pack()
+        button2.pack(pady=30,padx=30)
 
 
 class PageOne(tk.Frame):
@@ -186,23 +128,42 @@ class GamePlay(tk.Frame):
         # label = tk.Label(self, text=logic.blanked, fg="blue")
         # label.pack()
         v = StringVar()
-        Label(self, textvariable=v).pack()
+        Label(self, textvariable=v, font=("Helvetica", 32)).pack(pady=30,padx=30)
 
         v.set(logic.blanked)
 
         e = Entry(self)
-        e.pack()
+        e.pack(pady=30,padx=30)
+
+        triesLeft = StringVar()
+        triesLeft.set(logic.triesLeft)
+
+        lettersTested = StringVar()
+        lettersTested.set(logic.totalTested)
 
         def rebuild():
             logic.check_letter(e.get())
             # label = tk.Label(self, text=logic.blanked, fg="blue")
             # label.pack()
             v.set(logic.blanked)
+            triesLeft.set(logic.triesLeft)
+            logic.tested_letters()
+            lettersTested.set(logic.totalTested)
 
 
         submitButton = Button(self, text="Submit", command=rebuild)
+        submitButton.pack(pady=10,padx=10)
 
-        submitButton.pack()
+        tested = Label(self, textvariable=lettersTested, font=("Helvetica", 20))
+        tested.pack()
+
+
+        triesLeftLable = Label(self, textvariable=triesLeft, font=("Helvetica", 20))
+        triesLeftLable.pack()
+
+
+        quitButton = Button(self, text="Quit")
+        quitButton.pack(pady=10,padx=10)
 
 
 

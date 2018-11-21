@@ -25,11 +25,14 @@ class logic(object):
         self.wrong = []
         self.points = 0
         self.wrongCount = 0
+        self.triesLeft = 15
+        self.totalTested = ""
 
     def get_word(self):
         r = RandomWords()
-        w = r.get_random_word()
+        w = r.get_random_word(hasDictionaryDef="true", minLength=5, maxLength=5)
         self.word = w.lower()
+
         print(self.word)
 
         # dictionary = PyDictionary()
@@ -56,9 +59,7 @@ class logic(object):
             else:
                 self.wrong.append(letterGuess)
                 self.wrongCount += 1
-
-
-
+                self.triesLeft -= 1
 
         print(self.correct)
         print(self.wrong)
@@ -77,6 +78,12 @@ class logic(object):
 
         self.blanked = "".join(toList)
         print(self.blanked)
+
+
+    def tested_letters(self):
+
+        self.totalTested = "".join(self.correct) + "".join(self.wrong)
+        print(self.totalTested)
 
 
 
