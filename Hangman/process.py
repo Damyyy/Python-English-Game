@@ -92,6 +92,23 @@ class logic(object):
         self.totalTested = "".join(self.correct) + "".join(self.wrong)
         print(self.totalTested)
 
+    def reset(self):
+
+        # Word Related
+        self.word = ""
+        self.blanked = ""
+        self.wordLength = 0
+        # Guess Related
+        self.guessed = []
+        self.correct = []
+        self.wrong = []
+        self.points = 0
+        self.wrongCount = 0
+        self.triesLeft = 15
+        self.totalTested = ""
+        self.get_word()
+        self.process_word()
+
 
 
 

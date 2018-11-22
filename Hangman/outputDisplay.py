@@ -4,6 +4,7 @@ from tkinter import *
 
 
 import process
+import file_io
 
 
 
@@ -29,7 +30,7 @@ class MainMenu(tk.Tk):
         self.frames = {}
 
         # Add Pages here
-        for F in (StartPage, PageOne, PageTwo, UserNamePage, GamePlay):
+        for F in (StartPage, PageOne, PageTwo, UserNamePage, GamePlay, LoosingPage):
 
             frame = F(container, self)
 
@@ -103,8 +104,28 @@ class UserNamePage(tk.Frame):
         e = Entry(self)
         e.pack()
 
-        button = tk.Button(self, text="Continue", command=lambda: controller.show_frame(GamePlay), fg="red")
+        def e_delete():
+            e.delete(first=0,last=22)
+
+        def multiFunction():
+            yo = file_io.User()
+            yo.setName(e.get())
+            e_delete()
+            yo.test()
+            controller.show_frame(GamePlay)
+
+
+
+        # button = tk.Button(self, text="Continue", command=lambda: controller.show_frame(GamePlay), fg="red")
+        button = tk.Button(self, text="Continue", command=multiFunction, fg="red")
+
+
+
         button.pack()
+
+
+
+
 
 
 
@@ -112,12 +133,10 @@ class GamePlay(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self,parent)
 
+
+
         label = tk.Label(self, text="GAME PLAY HERE", font=LARGE_FONT, fg="red")
         label.pack(pady=10,padx=10)
-
-
-
-
         # Instance
 
         logic = process.logic()
@@ -132,7 +151,8 @@ class GamePlay(tk.Frame):
 
         v.set(logic.blanked)
 
-        e = Entry(self)
+        e = Entry(self, width=20)
+
         e.pack(pady=30,padx=30)
 
         triesLeft = StringVar()
@@ -141,8 +161,14 @@ class GamePlay(tk.Frame):
         lettersTested = StringVar()
         lettersTested.set(logic.totalTested)
 
+
+
+        def e_delete():
+            e.delete(first=0,last=22)
+
         def rebuild():
             logic.check_letter(e.get())
+            e_delete()
             # label = tk.Label(self, text=logic.blanked, fg="blue")
             # label.pack()
             v.set(logic.blanked)
@@ -150,6 +176,12 @@ class GamePlay(tk.Frame):
             logic.tested_letters()
             lettersTested.set(logic.totalTested)
 
+
+            if logic.triesLeft <= 0:
+                logic.reset()
+                file_io.IO.saveToText(self)
+                controller.show_frame(LoosingPage)
+                rebuild()
 
         submitButton = Button(self, text="Submit", command=rebuild)
         submitButton.pack(pady=10,padx=10)
@@ -161,10 +193,24 @@ class GamePlay(tk.Frame):
         triesLeftLable = Label(self, textvariable=triesLeft, font=("Helvetica", 20))
         triesLeftLable.pack()
 
-
         quitButton = Button(self, text="Quit")
         quitButton.pack(pady=10,padx=10)
 
 
 
 
+
+
+
+
+
+
+class LoosingPage(tk.Frame):
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+
+        label = tk.Label(self, text="YOU LOOSE! HAHAHAHAHAHA", font=LARGE_FONT, fg="red")
+        label.pack(pady=10,padx=10)
+
+        button = tk.Button(self, text="Continue", command=lambda: controller.show_frame(StartPage), fg="red")
+        button.pack()
