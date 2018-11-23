@@ -1,4 +1,5 @@
 
+import process
 
 class User(object):
     def __init__(self):
@@ -19,5 +20,6 @@ class User(object):
 class IO():
     def saveToText(self):
         file = open('scores.txt','w')
-        file.write('Test')
-        file.close()
+        # file.write(User.name)
+        # file.write(process.logic.points)
+        # file.close()

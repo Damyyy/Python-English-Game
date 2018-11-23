@@ -34,6 +34,8 @@ class logic(object):
         self.wrongCount = 0
         self.triesLeft = 15
         self.totalTested = ""
+        self.requiredPoints = 0
+        self.abcd = "abcdefghijklmnopqrstuvwxyz-"
 
     def get_word(self):
         r = RandomWords()
@@ -62,11 +64,12 @@ class logic(object):
             if letterGuess in self.word:
                 self.correct.append(letterGuess)
                 self.points += 1
-                print(self.points)
+                print("POINTS" + str(self.points))
             else:
                 self.wrong.append(letterGuess)
                 self.wrongCount += 1
                 self.triesLeft -= 1
+
 
         print(self.correct)
         print(self.wrong)
@@ -106,8 +109,31 @@ class logic(object):
         self.wrongCount = 0
         self.triesLeft = 15
         self.totalTested = ""
+        self.requiredPoints = 0
         self.get_word()
         self.process_word()
+        self.count_required_points()
+
+
+
+
+    def count_required_points(self):
+        toList = list(self.abcd)
+
+
+        for i in range(self.wordLength):
+            if self.word[i] in self.abcd:
+                self.requiredPoints += 1
+                toList.remove(self.word[i])
+                self.abcd = "".join(toList)
+
+        print("REQUIRED POINTS" + str(self.requiredPoints))
+
+
+
+
+
+
 
 
 
