@@ -1,5 +1,6 @@
 
 import process
+import json
 
 class User(object):
     def __init__(self):
@@ -8,9 +9,8 @@ class User(object):
         self.points = 0
     def setName(self, name):
         self.name = name
-    def setValues(self, points, wordsCorrect):
-        self.points = points
-        self.wordsCorrect = wordsCorrect
+    def setPoints(self, points):
+        self.points += points
     def test(self):
         print(self.name)
         print(self.points)
@@ -18,8 +18,17 @@ class User(object):
 
 
 class IO():
-    def saveToText(self):
+    def saveToText(self, userName, points):
+
+        info = {userName : str(points)}
         file = open('scores.txt','w')
-        # file.write(User.name)
+        # file.write(userName)
+        # file.write(str(points))
+        file.write(json.dumps(info))
         # file.write(process.logic.points)
-        # file.close()
+        file.close()
+    def readFromText(self):
+        file = open('scores.txt', 'r')
+        print(file.read())
+        print(type(file.read()))
+

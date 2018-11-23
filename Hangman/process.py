@@ -64,7 +64,8 @@ class logic(object):
             if letterGuess in self.word:
                 self.correct.append(letterGuess)
                 self.points += 1
-                print("POINTS" + str(self.points))
+                print("POINTS" + str(self.points) + "FROM ____" + letterGuess)
+
             else:
                 self.wrong.append(letterGuess)
                 self.wrongCount += 1
@@ -95,24 +96,7 @@ class logic(object):
         self.totalTested = "".join(self.correct) + "".join(self.wrong)
         print(self.totalTested)
 
-    def reset(self):
 
-        # Word Related
-        self.word = ""
-        self.blanked = ""
-        self.wordLength = 0
-        # Guess Related
-        self.guessed = []
-        self.correct = []
-        self.wrong = []
-        self.points = 0
-        self.wrongCount = 0
-        self.triesLeft = 15
-        self.totalTested = ""
-        self.requiredPoints = 0
-        self.get_word()
-        self.process_word()
-        self.count_required_points()
 
 
 
@@ -129,6 +113,28 @@ class logic(object):
 
         print("REQUIRED POINTS" + str(self.requiredPoints))
 
+
+
+
+    def reset(self):
+
+        # Word Related
+        # self.word = ""
+        # self.blanked = ""
+        self.wordLength = 0
+        # Guess Related
+        self.guessed = []
+        self.correct = []
+        self.wrong = []
+        self.points = 0
+        self.wrongCount = 0
+        self.triesLeft = 15
+        self.totalTested = ""
+        self.requiredPoints = 0
+        self.get_word()
+        self.process_word()
+        self.abcd = "abcdefghijklmnopqrstuvwxyz-"
+        self.count_required_points()
 
 
 
