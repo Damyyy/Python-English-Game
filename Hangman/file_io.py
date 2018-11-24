@@ -23,7 +23,7 @@ class IO():
 
     def __init__(self):
 
-        self.scores = {"": ""}
+        self.scores = ""
 
 
     def saveToText(self, userName, points):
@@ -90,14 +90,20 @@ class IO():
 
 
     def readFromText(self):
-        file = open('scores.txt', 'r')
-        value = file.read()
+        try:
+            file = open('scores.txt', 'r')
+            value = file.read()
 
-        toDictionary = eval(value)
+            toDictionary = eval(value)
 
-        print(toDictionary)
+            print(toDictionary)
 
-        print(type(toDictionary))
-        self.scores = toDictionary
+            print(type(toDictionary))
+            self.scores = toDictionary
 
-        self.scores = '\n'.join("{}: {}".format(k, v) for k, v in toDictionary.items())
+            self.scores = '\n'.join("{}: {}".format(k, v) for k, v in toDictionary.items())
+
+        except IOError:
+            print("Error")
+
+
