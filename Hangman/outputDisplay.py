@@ -153,7 +153,7 @@ class GamePlay(tk.Frame):
 
         def rebuild():
 
-            if logic.triesLeft <= 0:
+            if logic.triesLeft <= 1:
                 file_io.IO.saveToText(self, controller.user.name, controller.user.points)
                 logic.reset()
                 controller.show_frame(LoosingPage)
