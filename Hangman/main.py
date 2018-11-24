@@ -11,10 +11,13 @@ from pygame import mixer
 # mixer.music.play(loops=-1)
 
 
-app = outputDisplay.MainMenu()
-app.title("Game")
-app.geometry("800x500")
-# app.configure(background="black")
-app.mainloop()
+try:
+    app = outputDisplay.MainMenu()
+    app.title("Game")
+    app.geometry("800x500")
+    # app.configure(background="black")
+    app.mainloop()
 
+except:
+    print("Please Check Your Wifi Connection")
 

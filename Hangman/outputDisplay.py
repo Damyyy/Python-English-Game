@@ -13,6 +13,7 @@ class MainMenu(tk.Tk):
     def __init__(self, *args, **kwargs):
         self.user = file_io.User()
         self.scoresObject = file_io.IO()
+        self.correctWord = process.showAnswer()
 
         tk.Tk.__init__(self, *args, **kwargs)
 
@@ -153,33 +154,38 @@ class GamePlay(tk.Frame):
             e.delete(first=0, last=22)
 
         def rebuild():
-
             if logic.triesLeft <= 1:
+                controller.user.setPoints(logic.points)
+                controller.correctWord.correctAnswer(logic.word)
                 file_io.IO.saveToText(self, controller.user.name, controller.user.points)
                 logic.reset()
                 controller.show_frame(LoosingPage)
-                rebuild()
+                e_delete()
+                v.set(logic.blanked)
+                lettersTested.set(logic.totalTested)
+                triesLeft.set(logic.triesLeft)
 
             if logic.triesLeft >= 0:
                 if e.get() != "":
                     logic.check_letter(e.get().lower())
-                e_delete()
-                # label = tk.Label(self, text=logic.blanked, fg="blue")
-                # label.pack()
-                v.set(logic.blanked)
-                triesLeft.set(logic.triesLeft)
-                logic.tested_letters()
-                lettersTested.set(logic.totalTested)
+                    e_delete()
+                    # label = tk.Label(self, text=logic.blanked, fg="blue")
+                    # label.pack()
+                    v.set(logic.blanked)
+                    triesLeft.set(logic.triesLeft)
+                    logic.tested_letters()
+                    lettersTested.set(logic.totalTested)
 
             if logic.points == logic.requiredPoints:
                 controller.user.setPoints(logic.points)
-
                 logic.reset()
-
                 controller.show_frame(WinningPage)
-                rebuild()
+                v.set(logic.blanked)
+                lettersTested.set(logic.totalTested)
+                triesLeft.set(logic.triesLeft)
 
-        submitButton = Button(self, text="Submit", command=rebuild, height=2, width=10, fg="white", bg='green')
+        submitButton = Button(self, text="Submit", command=lambda: rebuild(), height=2, width=10, fg="white",
+                              bg='green')
         submitButton.pack(pady=10, padx=10)
 
         tested = Label(self, textvariable=lettersTested, font=("Helvetica", 20))
@@ -190,10 +196,13 @@ class GamePlay(tk.Frame):
 
         def multifunction():
             controller.user.setPoints(logic.points)
+            controller.correctWord.correctAnswer(logic.word)
             file_io.IO.saveToText(self, controller.user.name, controller.user.points)
             logic.reset()
             controller.show_frame(LoosingPage)
-            rebuild()
+            v.set(logic.blanked)
+            lettersTested.set(logic.totalTested)
+            triesLeft.set(logic.triesLeft)
 
         quitButton = Button(self, text="Quit", height=2, width=10, command=lambda: multifunction(), fg="white",
                             bg='red')
@@ -203,16 +212,32 @@ class GamePlay(tk.Frame):
 class LoosingPage(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
-        # correctAnswer = 'The Correct Answer is: ' + logic.
 
         label = tk.Label(self, text="YOU LOOSE! HAHAHAHAHAHA", font=LARGE_FONT, fg="red")
         label.pack(pady=10, padx=10)
         # correctAnswer = tk.Label(self, text="", font=LARGE_FONT, fg="red")
         # label.pack(pady=10, padx=10)
 
-        button = tk.Button(self, text="Continue", command=lambda: controller.show_frame(StartPage), fg="white",
+        v = StringVar()
+        v.set(controller.correctWord.correctWord)
+
+        labe12 = tk.Label(self, textvariable=v, font=LARGE_FONT, fg="red")
+        labe12.pack(pady=10, padx=10)
+
+        buttonAnswer = tk.Button(self, text="Show Answer", command=lambda: getWord(), fg="white",
+                                 bg='green')
+        buttonAnswer.pack()
+
+        def getWord():
+            v.set(controller.correctWord.correctWord)
+
+        button = tk.Button(self, text="Continue", command=lambda: clearAndNavigate(), fg="white",
                            bg='green')
         button.pack()
+
+        def clearAndNavigate():
+            v.set('')
+            controller.show_frame(StartPage)
 
 
 class WinningPage(tk.Frame):

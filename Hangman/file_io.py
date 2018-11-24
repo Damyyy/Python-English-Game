@@ -24,6 +24,7 @@ class IO():
     def __init__(self):
 
         self.scores = ""
+        self.temporaryDict = {'':''}
 
 
     def saveToText(self, userName, points):
@@ -42,7 +43,7 @@ class IO():
             content = read.read()
             contentToDict = eval(content)
             # Add value to dictionary
-            contentToDict.update({userName: str(points)})
+            contentToDict.update({userName: points})
             read.close()
             file = open('scores.txt', 'w')
             # Write dictinary to textfile in jason format
@@ -62,7 +63,7 @@ class IO():
             content = read.read()
             contentToDict = eval(content)
             # Add value to dictionary
-            contentToDict.update({userName: str(points)})
+            contentToDict.update({userName: points})
             read.close()
             file = open('scores.txt', 'w')
             # Write dictinary to textfile in jason format
@@ -93,15 +94,42 @@ class IO():
         try:
             file = open('scores.txt', 'r')
             value = file.read()
+            self.temporaryDict = {'':''}
+            self.scoreString = ''
 
             toDictionary = eval(value)
 
             print(toDictionary)
 
-            print(type(toDictionary))
-            self.scores = toDictionary
+            # sort the keys according to the values:
+            # sorted_names = sorted(toDictionary, key=toDictionary.__getitem__, reverse=True)
+            # for k in sorted_names:
+            #     self.temporaryDict.update({k: toDictionary[k]})
 
-            self.scores = '\n'.join("{}: {}".format(k, v) for k, v in toDictionary.items())
+
+
+
+
+
+            listofTuples = sorted(toDictionary.items() , reverse=True, key=lambda x: x[1])
+
+            # Iterate over the sorted sequence
+            for elem in listofTuples:
+                # print(elem[0] , " ::" , elem[1] )
+                self.temporaryDict.update({elem[0]: elem[1]})
+                line = '\n' + elem[0] + ' : ' + str(elem[1])
+                self.scoreString = self.scoreString + line
+
+
+            # del self.temporaryDict['']
+            # sorted(self.temporaryDict.items(), key=lambda x: x[1], reverse=True)
+            # print(self.temporaryDict)
+            # print(type(self.temporaryDict))
+            # self.scores = self.temporaryDict
+            print(self.scoreString)
+            self.scores = self.scoreString
+
+
 
         except IOError:
             print("Error")

@@ -139,6 +139,15 @@ class logic(object):
 
 
 
+class showAnswer(object):
+    def __init__(self):
+        self.correctWord = ''
+    def correctAnswer(self, word):
+        self.correctWord = word
+        print(self.correctWord + 'From ')
+    def getCorrectAnswer(self):
+        return  self.correctWord
+
 
 
 
