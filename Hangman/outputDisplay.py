@@ -13,7 +13,7 @@ class MainMenu(tk.Tk):
     def __init__(self, *args, **kwargs):
         self.user = file_io.User()
         self.scoresObject = file_io.IO()
-        self.correctWord = process.showAnswer()
+        self.correctWord = process.ShowAnswer()
 
         tk.Tk.__init__(self, *args, **kwargs)
 
@@ -23,7 +23,7 @@ class MainMenu(tk.Tk):
         self.frames = {}
 
         # Add Pages here
-        for F in (StartPage, PageOne, PageTwo, UserNamePage, GamePlay, LoosingPage, WinningPage, ViewScores):
+        for F in (StartPage, UserNamePage, GamePlay, LoosingPage, WinningPage, ViewScores):
             frame = F(container, self)
 
             self.frames[F] = frame
@@ -32,6 +32,7 @@ class MainMenu(tk.Tk):
 
         self.show_frame(StartPage)
 
+    # This function is used to raised the page that is called so that it is visible
     def show_frame(self, cont):
         frame = self.frames[cont]
         frame.tkraise()
@@ -49,11 +50,10 @@ class StartPage(tk.Frame):
                            width=10)
         button.pack(pady=30, padx=30)
 
-        # button2 = tk.Button(self, text="View Scores",
-        #                     command=lambda: controller.show_frame(PageTwo), height=2, width=10)
-
         def multifunction():
+            # Called function to read textfile
             controller.scoresObject.readFromText()
+            # Navigate to view score page
             controller.show_frame(ViewScores)
 
         button2 = tk.Button(self, text="View Scores",
@@ -61,58 +61,29 @@ class StartPage(tk.Frame):
         button2.pack(pady=30, padx=30)
 
 
-class PageOne(tk.Frame):
-
-    def __init__(self, parent, controller):
-        tk.Frame.__init__(self, parent)
-        label = tk.Label(self, text="Page One!!!", font=LARGE_FONT)
-        label.pack(pady=10, padx=10)
-
-        button1 = tk.Button(self, text="Back to Home",
-                            command=lambda: controller.show_frame(StartPage))
-        button1.pack()
-
-        button2 = tk.Button(self, text="Page Two",
-                            command=lambda: controller.show_frame(PageTwo))
-        button2.pack()
-
-
-class PageTwo(tk.Frame):
-
-    def __init__(self, parent, controller):
-        tk.Frame.__init__(self, parent)
-        label = tk.Label(self, text="Page Two!!!", font=LARGE_FONT)
-        label.pack(pady=10, padx=10)
-
-        button1 = tk.Button(self, text="Back to Home",
-                            command=lambda: controller.show_frame(StartPage), height=2, width=10, bg="#00ffff")
-        button1.pack()
-
-        button2 = tk.Button(self, text="Page One",
-                            command=lambda: controller.show_frame(PageOne), height=2, width=10)
-        button2.pack()
-
-
 class UserNamePage(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
+
+        # Empty all values from entry
+        def e_delete():
+            e.delete(first=0, last=22)
+
+        def multiFunction():
+            # user = file_io.User()
+
+            # If user tries to enter an empty name, it will not continue
+            if e.get() != '':
+                controller.user.setName(e.get())
+                e_delete()
+                controller.user.test()
+                controller.show_frame(GamePlay)
 
         label = tk.Label(self, text="ENTER YOUR NAME", font=LARGE_FONT, fg="green")
         label.pack(pady=10, padx=10)
 
         e = Entry(self)
         e.pack(pady=10, padx=10)
-
-        def e_delete():
-            e.delete(first=0, last=22)
-
-        def multiFunction():
-            # user = file_io.User()
-            if e.get() != '':
-                controller.user.setName(e.get())
-                e_delete()
-                controller.user.test()
-                controller.show_frame(GamePlay)
 
         button = tk.Button(self, text="Continue", command=lambda: multiFunction(), fg="green", height=2, width=10)
 
@@ -125,16 +96,13 @@ class GamePlay(tk.Frame):
 
         label = tk.Label(self, text="GUESS THE WORD IF U CAN!", font=LARGE_FONT, fg="green")
         label.pack(pady=10, padx=10)
-        # Instance
 
+        # Instantiates logic class
         logic = process.logic()
         logic.get_word()
         logic.process_word()
         logic.count_required_points()
-        print(logic.blanked)
 
-        # label = tk.Label(self, text=logic.blanked, fg="blue")
-        # label.pack()
         v = StringVar()
         Label(self, textvariable=v, font=("Helvetica", 32)).pack(pady=30, padx=30)
 
@@ -153,6 +121,7 @@ class GamePlay(tk.Frame):
         def e_delete():
             e.delete(first=0, last=22)
 
+        # Rebuild function takes care of validating, rebuilding ui and navigation.
         def rebuild():
             if logic.triesLeft <= 1:
                 controller.user.setPoints(logic.points)
@@ -170,8 +139,6 @@ class GamePlay(tk.Frame):
                 if e.get() != "":
                     logic.check_letter(e.get().lower())
                     e_delete()
-                    # label = tk.Label(self, text=logic.blanked, fg="blue")
-                    # label.pack()
                     v.set(logic.blanked)
                     triesLeft.set(logic.triesLeft)
                     logic.tested_letters()
@@ -195,7 +162,9 @@ class GamePlay(tk.Frame):
         triesLeftLable = Label(self, textvariable=triesLeft, font=("Helvetica", 20))
         triesLeftLable.pack()
 
+        # Handles state when user wishes to quit
         def multifunction():
+            e_delete()
             controller.user.setPoints(logic.points)
             controller.correctWord.correctAnswer(logic.word)
             file_io.IO.saveToText(self, controller.user.name, controller.user.points)
@@ -217,8 +186,7 @@ class LoosingPage(tk.Frame):
 
         label = tk.Label(self, text="YOU LOOSE! HAHAHAHAHAHA", font=LARGE_FONT, fg="red")
         label.pack(pady=10, padx=10)
-        # correctAnswer = tk.Label(self, text="", font=LARGE_FONT, fg="red")
-        # label.pack(pady=10, padx=10)
+
 
         v = StringVar()
         v.set(controller.correctWord.correctWord)
@@ -250,7 +218,7 @@ class WinningPage(tk.Frame):
         label.pack(pady=10, padx=10)
 
         button = tk.Button(self, text="Continue", command=lambda: controller.show_frame(GamePlay), fg="white",
-                           bg='green', width=10 , height=2)
+                           bg='green', width=10, height=2)
         button.pack()
 
 
@@ -267,12 +235,12 @@ class ViewScores(tk.Frame):
 
         label.pack(pady=10, padx=10)
 
-        buttonRebuild = tk.Button(self, text="Click To See Score Updates", command=lambda: rebuld(), fg="white",
+        buttonRebuild = tk.Button(self, text="Click To See Score Updates", command=lambda: rebuild(), fg="white",
                                   bg='green')
         buttonRebuild.pack(pady=5, padx=5)
         button = tk.Button(self, text="Back To Homepage", command=lambda: controller.show_frame(StartPage), fg="white",
                            bg='green')
         button.pack(pady=5, padx=5)
 
-        def rebuld():
+        def rebuild():
             v.set(controller.scoresObject.scores)

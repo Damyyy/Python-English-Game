@@ -2,24 +2,13 @@ from random_word import RandomWords
 from pygame import mixer
 
 
-
 # Other Modules
 
 
 # from PyDictionary import PyDictionary
 
 
-
 class logic(object):
-
-    # word = ""
-    # blanked = ""
-    # wordLength = 0
-    #
-    # guessed = []
-    # correct = []
-    # wrong = []
-    # points = 0
 
     def __init__(self):
         # Word Related
@@ -37,6 +26,7 @@ class logic(object):
         self.requiredPoints = 0
         self.abcd = "abcdefghijklmnopqrstuvwxyz-"
 
+    # Gets Random Word
     def get_word(self):
         r = RandomWords()
         w = r.get_random_word(hasDictionaryDef="true", minLength=5, maxLength=5)
@@ -44,9 +34,7 @@ class logic(object):
 
         print(self.word)
 
-        # dictionary = PyDictionary()
-        # print(dictionary.meaning(self.word, features = "lxml"))
-
+    # Makes Blanked word version
 
     def process_word(self):
         self.wordLength = len(self.word)
@@ -58,24 +46,24 @@ class logic(object):
 
         self.blanked = processedWord
 
-
+    # Check if letter guessed is in the word
+    # If yes then points added
+    # If wrong, tries will be deducted
     def check_letter(self, letterGuess):
         if letterGuess not in self.wrong and letterGuess not in self.correct:
             if letterGuess in self.word:
                 self.correct.append(letterGuess)
                 self.points += 1
-                print("POINTS" + str(self.points) + "FROM ____" + letterGuess)
+
 
             else:
                 self.wrong.append(letterGuess)
                 self.wrongCount += 1
                 self.triesLeft -= 1
 
-
-        print(self.correct)
-        print(self.wrong)
         self.rebuild_blankedWord()
 
+    # Rebuilds blank word after a new letter is guessed
     def rebuild_blankedWord(self):
 
         toList = list(self.blanked)
@@ -85,25 +73,13 @@ class logic(object):
             if wordToList[i] in self.correct:
                 toList[i * 2] = wordToList[i]
 
-
-
         self.blanked = "".join(toList)
-        print(self.blanked)
-
-
+    # Make a string to show users what inout they have tried
     def tested_letters(self):
-
         self.totalTested = "".join(self.correct) + "".join(self.wrong)
-        print(self.totalTested)
-
-
-
-
-
-
+    # Count required points to win
     def count_required_points(self):
         toList = list(self.abcd)
-
 
         for i in range(self.wordLength):
             if self.word[i] in self.abcd:
@@ -111,11 +87,7 @@ class logic(object):
                 toList.remove(self.word[i])
                 self.abcd = "".join(toList)
 
-        print("REQUIRED POINTS" + str(self.requiredPoints))
-
-
-
-
+    # Reset all values 
     def reset(self):
 
         # Word Related
@@ -137,30 +109,14 @@ class logic(object):
         self.count_required_points()
 
 
+# This class is use to give the correct answer to user if they lose
+class ShowAnswer(object):
 
-
-class showAnswer(object):
     def __init__(self):
         self.correctWord = ''
+
     def correctAnswer(self, word):
         self.correctWord = word
-        print(self.correctWord + 'From ')
+
     def getCorrectAnswer(self):
-        return  self.correctWord
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        return self.correctWord

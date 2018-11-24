@@ -1,4 +1,3 @@
-import process
 import json
 
 
@@ -17,6 +16,7 @@ class User(object):
     def test(self):
         print(self.name)
         print(self.points)
+
     def reset(self):
         self.points = 0
 
@@ -26,8 +26,7 @@ class IO():
     def __init__(self):
 
         self.scores = ""
-        self.temporaryDict = {'':''}
-
+        self.temporaryDict = {'': ''}
 
     def saveToText(self, userName, points):
 
@@ -68,10 +67,9 @@ class IO():
             contentToDict.update({userName: points})
             read.close()
             file = open('scores.txt', 'w')
-            # Write dictinary to textfile in jason format
+            # Write dictionary to textfile in jason format
             file.write(json.dumps(contentToDict))
             file.close()
-
 
             file = open('scores.txt', 'r')
             # Write dictinary to textfile in jason format
@@ -81,59 +79,36 @@ class IO():
 
             del valToDict[""]
 
-
             file = open('scores.txt', 'w')
             # Write dictinary to textfile in jason format
             file.write(json.dumps(valToDict))
             file.close()
 
-
-
-
-
-
     def readFromText(self):
+        # Try to read from text file
+        # If no file written yet it will be unable to read
+        # If no file available try exception will be use to catch and handle error
+
+
         try:
             file = open('scores.txt', 'r')
             value = file.read()
-            self.temporaryDict = {'':''}
+            self.temporaryDict = {'': ''}
             self.scoreString = ''
 
             toDictionary = eval(value)
 
-            print(toDictionary)
+            listofTuples = sorted(toDictionary.items(), reverse=True, key=lambda x: x[1])
 
-            # sort the keys according to the values:
-            # sorted_names = sorted(toDictionary, key=toDictionary.__getitem__, reverse=True)
-            # for k in sorted_names:
-            #     self.temporaryDict.update({k: toDictionary[k]})
-
-
-
-
-
-
-            listofTuples = sorted(toDictionary.items() , reverse=True, key=lambda x: x[1])
-
-            # Iterate over the sorted sequence
+            # Arranging scores based on values
             for elem in listofTuples:
-                # print(elem[0] , " ::" , elem[1] )
                 self.temporaryDict.update({elem[0]: elem[1]})
                 line = '\n' + elem[0] + ' : ' + str(elem[1])
                 self.scoreString = self.scoreString + line
 
-
-            # del self.temporaryDict['']
-            # sorted(self.temporaryDict.items(), key=lambda x: x[1], reverse=True)
-            # print(self.temporaryDict)
-            # print(type(self.temporaryDict))
-            # self.scores = self.temporaryDict
-            print(self.scoreString)
             self.scores = self.scoreString
 
 
 
         except IOError:
-            print("Error")
-
-
+            print("File will be created")
