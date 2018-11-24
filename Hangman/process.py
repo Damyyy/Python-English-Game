@@ -52,12 +52,19 @@ class logic(object):
     def check_letter(self, letterGuess):
         if letterGuess not in self.wrong and letterGuess not in self.correct:
             if letterGuess in self.word:
+                mixer.init()
+                mixer.music.load('correct.mp3')
+                mixer.music.play()
                 self.correct.append(letterGuess)
                 self.points += 1
 
 
+
             else:
                 self.wrong.append(letterGuess)
+                mixer.init()
+                mixer.music.load('wrong.mp3')
+                mixer.music.play()
                 self.wrongCount += 1
                 self.triesLeft -= 1
 
@@ -87,7 +94,7 @@ class logic(object):
                 toList.remove(self.word[i])
                 self.abcd = "".join(toList)
 
-    # Reset all values 
+    # Reset all values
     def reset(self):
 
         # Word Related

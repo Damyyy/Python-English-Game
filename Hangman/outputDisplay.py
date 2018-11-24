@@ -1,6 +1,7 @@
 import tkinter as tk
 
 from tkinter import *
+from pygame import mixer
 
 import process
 import file_io
@@ -134,6 +135,9 @@ class GamePlay(tk.Frame):
                 lettersTested.set(logic.totalTested)
                 triesLeft.set(logic.triesLeft)
                 controller.user.reset()
+                mixer.init()
+                mixer.music.load('lose.mp3')
+                mixer.music.play()
 
             if logic.triesLeft >= 0:
                 if e.get() != "":
@@ -151,6 +155,9 @@ class GamePlay(tk.Frame):
                 v.set(logic.blanked)
                 lettersTested.set(logic.totalTested)
                 triesLeft.set(logic.triesLeft)
+                mixer.init()
+                mixer.music.load('win.mp3')
+                mixer.music.play()
 
         submitButton = Button(self, text="Submit", command=lambda: rebuild(), height=2, width=10, fg="white",
                               bg='green')
@@ -174,6 +181,9 @@ class GamePlay(tk.Frame):
             lettersTested.set(logic.totalTested)
             triesLeft.set(logic.triesLeft)
             controller.user.reset()
+            mixer.init()
+            mixer.music.load('lose.mp3')
+            mixer.music.play()
 
         quitButton = Button(self, text="Quit", height=2, width=10, command=lambda: multifunction(), fg="white",
                             bg='red')
