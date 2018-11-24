@@ -17,6 +17,8 @@ class User(object):
     def test(self):
         print(self.name)
         print(self.points)
+    def reset(self):
+        self.points = 0
 
 
 class IO():

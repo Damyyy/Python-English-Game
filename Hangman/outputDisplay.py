@@ -114,7 +114,7 @@ class UserNamePage(tk.Frame):
                 controller.user.test()
                 controller.show_frame(GamePlay)
 
-        button = tk.Button(self, text="Continue", command=multiFunction, fg="green", height=2, width=10)
+        button = tk.Button(self, text="Continue", command=lambda: multiFunction(), fg="green", height=2, width=10)
 
         button.pack(padx=5, pady=5)
 
@@ -164,6 +164,7 @@ class GamePlay(tk.Frame):
                 v.set(logic.blanked)
                 lettersTested.set(logic.totalTested)
                 triesLeft.set(logic.triesLeft)
+                controller.user.reset()
 
             if logic.triesLeft >= 0:
                 if e.get() != "":
@@ -203,6 +204,7 @@ class GamePlay(tk.Frame):
             v.set(logic.blanked)
             lettersTested.set(logic.totalTested)
             triesLeft.set(logic.triesLeft)
+            controller.user.reset()
 
         quitButton = Button(self, text="Quit", height=2, width=10, command=lambda: multifunction(), fg="white",
                             bg='red')
@@ -224,16 +226,16 @@ class LoosingPage(tk.Frame):
         labe12 = tk.Label(self, textvariable=v, font=LARGE_FONT, fg="red")
         labe12.pack(pady=10, padx=10)
 
-        buttonAnswer = tk.Button(self, text="Show Answer", command=lambda: getWord(), fg="white",
-                                 bg='green')
-        buttonAnswer.pack()
+        buttonAnswer = tk.Button(self, text="Show Answer", command=lambda: getWord(), fg="white", bg='green', height=2,
+                                 width=10)
+        buttonAnswer.pack(pady=10, padx=10)
 
         def getWord():
             v.set(controller.correctWord.correctWord)
 
-        button = tk.Button(self, text="Continue", command=lambda: clearAndNavigate(), fg="white",
-                           bg='green')
-        button.pack()
+        button = tk.Button(self, text="Continue", command=lambda: clearAndNavigate(), fg="white", bg='green', height=2,
+                           width=10)
+        button.pack(pady=10, padx=10)
 
         def clearAndNavigate():
             v.set('')
@@ -248,7 +250,7 @@ class WinningPage(tk.Frame):
         label.pack(pady=10, padx=10)
 
         button = tk.Button(self, text="Continue", command=lambda: controller.show_frame(GamePlay), fg="white",
-                           bg='green')
+                           bg='green', width=10 , height=2)
         button.pack()
 
 
