@@ -40,11 +40,12 @@ class StartPage(tk.Frame):
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
-        label = tk.Label(self, text="THE HARDEST WORD GAME EVER", font=LARGE_FONT, fg="red")
+        label = tk.Label(self, text="THE HARDEST WORD GAME EVER", font=LARGE_FONT, fg="green")
         label.pack(pady=10, padx=10)
 
         button = tk.Button(self, text="Play Game",
-                           command=lambda: controller.show_frame(UserNamePage), bg="#4885ed", height=2, width=10)
+                           command=lambda: controller.show_frame(UserNamePage), fg="white", bg='green', height=2,
+                           width=10)
         button.pack(pady=30, padx=30)
 
         # button2 = tk.Button(self, text="View Scores",
@@ -55,7 +56,7 @@ class StartPage(tk.Frame):
             controller.show_frame(ViewScores)
 
         button2 = tk.Button(self, text="View Scores",
-                            command=lambda :multifunction())
+                            command=lambda: multifunction(), height=2, width=10, fg="white", bg='green')
         button2.pack(pady=30, padx=30)
 
 
@@ -95,11 +96,11 @@ class UserNamePage(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
 
-        label = tk.Label(self, text="ENTER YOUR NAME", font=LARGE_FONT, fg="red")
+        label = tk.Label(self, text="ENTER YOUR NAME", font=LARGE_FONT, fg="green")
         label.pack(pady=10, padx=10)
 
         e = Entry(self)
-        e.pack()
+        e.pack(pady=10, padx=10)
 
         def e_delete():
             e.delete(first=0, last=22)
@@ -112,18 +113,16 @@ class UserNamePage(tk.Frame):
                 controller.user.test()
                 controller.show_frame(GamePlay)
 
-        # button = tk.Button(self, text="Continue", command=lambda: controller.show_frame(GamePlay), fg="red")
+        button = tk.Button(self, text="Continue", command=multiFunction, fg="green", height=2, width=10)
 
-        button = tk.Button(self, text="Continue", command=multiFunction, fg="red", height=2, width=10)
-
-        button.pack()
+        button.pack(padx=5, pady=5)
 
 
 class GamePlay(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
 
-        label = tk.Label(self, text="GAME PLAY HERE", font=LARGE_FONT, fg="red")
+        label = tk.Label(self, text="GUESS THE WORD IF U CAN!", font=LARGE_FONT, fg="green")
         label.pack(pady=10, padx=10)
         # Instance
 
@@ -180,7 +179,7 @@ class GamePlay(tk.Frame):
                 controller.show_frame(WinningPage)
                 rebuild()
 
-        submitButton = Button(self, text="Submit", command=rebuild, height=2, width=10)
+        submitButton = Button(self, text="Submit", command=rebuild, height=2, width=10, fg="white", bg='green')
         submitButton.pack(pady=10, padx=10)
 
         tested = Label(self, textvariable=lettersTested, font=("Helvetica", 20))
@@ -189,25 +188,30 @@ class GamePlay(tk.Frame):
         triesLeftLable = Label(self, textvariable=triesLeft, font=("Helvetica", 20))
         triesLeftLable.pack()
 
-
         def multifunction():
+            controller.user.setPoints(logic.points)
             file_io.IO.saveToText(self, controller.user.name, controller.user.points)
             logic.reset()
             controller.show_frame(LoosingPage)
             rebuild()
 
-        quitButton = Button(self, text="Quit", height=2, width=10, command=lambda: multifunction())
+        quitButton = Button(self, text="Quit", height=2, width=10, command=lambda: multifunction(), fg="white",
+                            bg='red')
         quitButton.pack(pady=10, padx=10)
 
 
 class LoosingPage(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
+        # correctAnswer = 'The Correct Answer is: ' + logic.
 
         label = tk.Label(self, text="YOU LOOSE! HAHAHAHAHAHA", font=LARGE_FONT, fg="red")
         label.pack(pady=10, padx=10)
+        # correctAnswer = tk.Label(self, text="", font=LARGE_FONT, fg="red")
+        # label.pack(pady=10, padx=10)
 
-        button = tk.Button(self, text="Continue", command=lambda: controller.show_frame(StartPage), fg="red")
+        button = tk.Button(self, text="Continue", command=lambda: controller.show_frame(StartPage), fg="white",
+                           bg='green')
         button.pack()
 
 
@@ -215,12 +219,12 @@ class WinningPage(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
 
-        label = tk.Label(self, text="YOU WIN YAY!", font=LARGE_FONT, fg="red")
+        label = tk.Label(self, text="YOU WIN YAY!", font=LARGE_FONT, fg="green")
         label.pack(pady=10, padx=10)
 
-        button = tk.Button(self, text="Continue", command=lambda: controller.show_frame(GamePlay), fg="red")
+        button = tk.Button(self, text="Continue", command=lambda: controller.show_frame(GamePlay), fg="white",
+                           bg='green')
         button.pack()
-
 
 
 class ViewScores(tk.Frame):
@@ -232,22 +236,16 @@ class ViewScores(tk.Frame):
 
         v = StringVar()
         v.set(controller.scoresObject.scores)
-        label = tk.Label(self, textvariable= v, font=LARGE_FONT, fg="red")
-
+        label = tk.Label(self, textvariable=v, font=LARGE_FONT, fg="black")
 
         label.pack(pady=10, padx=10)
 
-        buttonRebuild = tk.Button(self, text="Click To See Score Updates", command=lambda: rebuld(), fg="red")
-        buttonRebuild.pack()
-        button = tk.Button(self, text="Continue", command=lambda: controller.show_frame(StartPage), fg="red")
-        button.pack()
+        buttonRebuild = tk.Button(self, text="Click To See Score Updates", command=lambda: rebuld(), fg="white",
+                                  bg='green')
+        buttonRebuild.pack(pady=5, padx=5)
+        button = tk.Button(self, text="Back To Homepage", command=lambda: controller.show_frame(StartPage), fg="white",
+                           bg='green')
+        button.pack(pady=5, padx=5)
 
         def rebuld():
             v.set(controller.scoresObject.scores)
-
-
-
-
-
-
-

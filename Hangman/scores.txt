@@ -1,1 +1,1 @@
-{"kel": "0", "trying to exit lar": "0", "kiki": "8", "mav": "10", "mo": "0"}
+{"test": "0", "kiki": "8", "ko": "0", "oo": "0", "trump": "14", "000": "1", "kel": "0", "hh": "1", "trying to exit lar": "0", "mav": "10", "mo": "4"}
