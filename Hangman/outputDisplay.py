@@ -12,6 +12,7 @@ class MainMenu(tk.Tk):
 
     def __init__(self, *args, **kwargs):
         self.user = file_io.User()
+        self.scoresObject = file_io.IO()
 
         tk.Tk.__init__(self, *args, **kwargs)
 
@@ -21,7 +22,7 @@ class MainMenu(tk.Tk):
         self.frames = {}
 
         # Add Pages here
-        for F in (StartPage, PageOne, PageTwo, UserNamePage, GamePlay, LoosingPage, WinningPage):
+        for F in (StartPage, PageOne, PageTwo, UserNamePage, GamePlay, LoosingPage, WinningPage, ViewScores):
             frame = F(container, self)
 
             self.frames[F] = frame
@@ -48,8 +49,13 @@ class StartPage(tk.Frame):
 
         # button2 = tk.Button(self, text="View Scores",
         #                     command=lambda: controller.show_frame(PageTwo), height=2, width=10)
+
+        def multifunction():
+            controller.scoresObject.readFromText()
+            controller.show_frame(ViewScores)
+
         button2 = tk.Button(self, text="View Scores",
-                            command=lambda: file_io.IO.readFromText(self))
+                            command=lambda :multifunction())
         button2.pack(pady=30, padx=30)
 
 
@@ -61,7 +67,7 @@ class PageOne(tk.Frame):
         label.pack(pady=10, padx=10)
 
         button1 = tk.Button(self, text="Back to Home",
-                            command=lambda: controller.show_frame(UserNamePage))
+                            command=lambda: controller.show_frame(StartPage))
         button1.pack()
 
         button2 = tk.Button(self, text="Page Two",
@@ -205,3 +211,34 @@ class WinningPage(tk.Frame):
 
         button = tk.Button(self, text="Continue", command=lambda: controller.show_frame(GamePlay), fg="red")
         button.pack()
+
+
+
+class ViewScores(tk.Frame):
+
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+
+        controller.scoresObject.readFromText()
+
+        v = StringVar()
+        v.set(controller.scoresObject.scores)
+        label = tk.Label(self, textvariable= v, font=LARGE_FONT, fg="red")
+
+
+        label.pack(pady=10, padx=10)
+
+        buttonRebuild = tk.Button(self, text="Click To See Score Updates", command=lambda: rebuld(), fg="red")
+        buttonRebuild.pack()
+        button = tk.Button(self, text="Continue", command=lambda: controller.show_frame(StartPage), fg="red")
+        button.pack()
+
+        def rebuld():
+            v.set(controller.scoresObject.scores)
+
+
+
+
+
+
+
