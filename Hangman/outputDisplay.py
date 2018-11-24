@@ -106,12 +106,14 @@ class UserNamePage(tk.Frame):
 
         def multiFunction():
             # user = file_io.User()
-            controller.user.setName(e.get())
-            e_delete()
-            controller.user.test()
-            controller.show_frame(GamePlay)
+            if e.get() != '':
+                controller.user.setName(e.get())
+                e_delete()
+                controller.user.test()
+                controller.show_frame(GamePlay)
 
         # button = tk.Button(self, text="Continue", command=lambda: controller.show_frame(GamePlay), fg="red")
+
         button = tk.Button(self, text="Continue", command=multiFunction, fg="red", height=2, width=10)
 
         button.pack()
@@ -161,7 +163,7 @@ class GamePlay(tk.Frame):
 
             if logic.triesLeft >= 0:
                 if e.get() != "":
-                    logic.check_letter(e.get())
+                    logic.check_letter(e.get().lower())
                 e_delete()
                 # label = tk.Label(self, text=logic.blanked, fg="blue")
                 # label.pack()
@@ -187,7 +189,14 @@ class GamePlay(tk.Frame):
         triesLeftLable = Label(self, textvariable=triesLeft, font=("Helvetica", 20))
         triesLeftLable.pack()
 
-        quitButton = Button(self, text="Quit", height=2, width=10)
+
+        def multifunction():
+            file_io.IO.saveToText(self, controller.user.name, controller.user.points)
+            logic.reset()
+            controller.show_frame(LoosingPage)
+            rebuild()
+
+        quitButton = Button(self, text="Quit", height=2, width=10, command=lambda: multifunction())
         quitButton.pack(pady=10, padx=10)
 
 
