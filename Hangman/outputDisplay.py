@@ -136,6 +136,7 @@ class GamePlay(tk.Frame):
         # Rebuild function takes care of validating, rebuilding ui and navigation.
         def rebuild():
             guess = e.get()
+            # String of valid inputs to be used to reference against user input
             abcd = "abcdefghijklmnopqrstuvwxyz-"
             if logic.triesLeft >= 0:
                 if guess != "" and len(guess) == 1 and guess in abcd:
