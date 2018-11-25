@@ -153,7 +153,7 @@ class GamePlay(tk.Frame):
                         lettersTested.set(logic.totalTested)
                         triesLeft.set(logic.triesLeft)
                         mixer.init()
-                        mixer.music.load('win.mp3')
+                        mixer.music.load('audio/win.mp3')
                         mixer.music.play()
 
             if logic.triesLeft <= 0:
@@ -168,7 +168,7 @@ class GamePlay(tk.Frame):
                 triesLeft.set(logic.triesLeft)
                 controller.user.reset()
                 mixer.init()
-                mixer.music.load('lose.mp3')
+                mixer.music.load('audio/lose.mp3')
                 mixer.music.play()
 
         submitButton = Button(self, text="Submit", command=lambda: rebuild(), height=2, width=10, fg="white",
@@ -194,7 +194,7 @@ class GamePlay(tk.Frame):
             triesLeft.set(logic.triesLeft)
             controller.user.reset()
             mixer.init()
-            mixer.music.load('lose.mp3')
+            mixer.music.load('audio/lose.mp3')
             mixer.music.play()
 
         quitButton = Button(self, text="Quit", height=2, width=10, command=lambda: multifunction(), fg="white",

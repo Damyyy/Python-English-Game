@@ -48,14 +48,14 @@ class logic(object):
         if letterGuess not in self.wrong and letterGuess not in self.correct:
             if letterGuess in self.word:
                 mixer.init()
-                mixer.music.load('correct.mp3')
+                mixer.music.load('audio/correct.mp3')
                 mixer.music.play()
                 self.correct.append(letterGuess)
                 self.points += 1
             else:
                 self.wrong.append(letterGuess)
                 mixer.init()
-                mixer.music.load('wrong.mp3')
+                mixer.music.load('audio/wrong.mp3')
                 mixer.music.play()
                 self.wrongCount += 1
                 self.triesLeft -= 1
