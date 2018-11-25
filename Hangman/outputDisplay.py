@@ -96,6 +96,11 @@ class UserNamePage(tk.Frame):
         button.pack(padx=5, pady=5)
 
 
+        button2 = tk.Button(self, text="Back To Homepage", command=lambda: controller.show_frame(StartPage), fg="green", height=2, width=17)
+        button2.pack(pady=5, padx=5)
+
+
+
 class GamePlay(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
@@ -118,6 +123,7 @@ class GamePlay(tk.Frame):
 
         e.pack(pady=30, padx=30)
 
+
         triesLeft = StringVar()
         triesLeft.set(logic.triesLeft)
 
@@ -129,9 +135,9 @@ class GamePlay(tk.Frame):
 
         # Rebuild function takes care of validating, rebuilding ui and navigation.
         def rebuild():
-
+            guess = e.get()
             if logic.triesLeft >= 0:
-                if e.get() != "":
+                if guess != "" and len(guess) == 1:
                     logic.check_letter(e.get().lower())
                     e_delete()
                     v.set(logic.blanked)
