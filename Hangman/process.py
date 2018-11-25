@@ -20,7 +20,7 @@ class logic(object):
         self.requiredPoints = 0
         self.abcd = "abcdefghijklmnopqrstuvwxyz-"
 
-    # Gets Random Word
+    # Gets Random Word For external source
     def get_word(self):
         rw = RandomWords()
         word = rw.random_word()
