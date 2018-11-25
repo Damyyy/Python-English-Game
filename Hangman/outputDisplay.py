@@ -124,7 +124,31 @@ class GamePlay(tk.Frame):
 
         # Rebuild function takes care of validating, rebuilding ui and navigation.
         def rebuild():
-            if logic.triesLeft <= 1:
+            
+
+            if logic.triesLeft >= 0:
+                if e.get() != "":
+                    logic.check_letter(e.get().lower())
+                    e_delete()
+                    v.set(logic.blanked)
+                    triesLeft.set(logic.triesLeft)
+                    logic.tested_letters()
+                    lettersTested.set(logic.totalTested)
+
+
+                    if logic.points == logic.requiredPoints:
+                        controller.user.setPoints(logic.points)
+                        logic.reset()
+                        controller.show_frame(WinningPage)
+                        v.set(logic.blanked)
+                        lettersTested.set(logic.totalTested)
+                        triesLeft.set(logic.triesLeft)
+                        mixer.init()
+                        mixer.music.load('win.mp3')
+                        mixer.music.play()
+
+
+            if logic.triesLeft <= 0:
                 controller.user.setPoints(logic.points)
                 controller.correctWord.correctAnswer(logic.word)
                 file_io.IO.saveToText(self, controller.user.name, controller.user.points)
@@ -138,26 +162,8 @@ class GamePlay(tk.Frame):
                 mixer.init()
                 mixer.music.load('lose.mp3')
                 mixer.music.play()
-
-            if logic.triesLeft >= 0:
-                if e.get() != "":
-                    logic.check_letter(e.get().lower())
-                    e_delete()
-                    v.set(logic.blanked)
-                    triesLeft.set(logic.triesLeft)
-                    logic.tested_letters()
-                    lettersTested.set(logic.totalTested)
-
-            if logic.points == logic.requiredPoints:
-                controller.user.setPoints(logic.points)
-                logic.reset()
-                controller.show_frame(WinningPage)
-                v.set(logic.blanked)
-                lettersTested.set(logic.totalTested)
-                triesLeft.set(logic.triesLeft)
-                mixer.init()
-                mixer.music.load('win.mp3')
-                mixer.music.play()
+        
+            
 
         submitButton = Button(self, text="Submit", command=lambda: rebuild(), height=2, width=10, fg="white",
                               bg='green')
@@ -241,7 +247,7 @@ class ViewScores(tk.Frame):
 
         v = StringVar()
         v.set(controller.scoresObject.scores)
-        label = tk.Label(self, textvariable=v, font=LARGE_FONT, fg="black", width=100)
+        label = tk.Label(self, textvariable=v, font=LARGE_FONT, fg="black", width=50)
 
         label.pack(pady=10, padx=10)
 
