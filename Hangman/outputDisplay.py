@@ -136,8 +136,9 @@ class GamePlay(tk.Frame):
         # Rebuild function takes care of validating, rebuilding ui and navigation.
         def rebuild():
             guess = e.get()
+            abcd = "abcdefghijklmnopqrstuvwxyz-"
             if logic.triesLeft >= 0:
-                if guess != "" and len(guess) == 1:
+                if guess != "" and len(guess) == 1 and guess in abcd:
                     logic.check_letter(e.get().lower())
                     e_delete()
                     v.set(logic.blanked)
@@ -240,7 +241,7 @@ class WinningPage(tk.Frame):
 
         button = tk.Button(self, text="Continue", command=lambda: controller.show_frame(GamePlay), fg="white",
                            bg='green', width=10, height=2)
-        button.pack()
+        button.pack(pady=20,padx=10)
 
 
 class ViewScores(tk.Frame):
