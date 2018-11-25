@@ -241,7 +241,7 @@ class ViewScores(tk.Frame):
 
         v = StringVar()
         v.set(controller.scoresObject.scores)
-        label = tk.Label(self, textvariable=v, font=LARGE_FONT, fg="black")
+        label = tk.Label(self, textvariable=v, font=LARGE_FONT, fg="black", width=100)
 
         label.pack(pady=10, padx=10)
 
