@@ -1,11 +1,11 @@
 import tkinter as tk
-
 from tkinter import *
 from pygame import mixer
 
 import process
 import file_io
 
+# One of the standard assessable to all classes
 LARGE_FONT = ("Verdana", 12)
 
 
@@ -76,7 +76,7 @@ class UserNamePage(tk.Frame):
             # If user tries to enter an empty name, it will not continue
             # Name ensure name is between 5 to 10 characters
             name = e.get()
-            if name != '' and len(name) > 5 and len(name) < 10:
+            if name != '' and len(name) >= 5 and len(name) <= 10:
                 controller.user.setName(e.get())
                 e_delete()
                 controller.user.test()
@@ -94,6 +94,11 @@ class UserNamePage(tk.Frame):
         button = tk.Button(self, text="Continue", command=lambda: multiFunction(), fg="green", height=2, width=10)
 
         button.pack(padx=5, pady=5)
+
+
+        button2 = tk.Button(self, text="Back To Homepage", command=lambda: controller.show_frame(StartPage), fg="green", height=2, width=17)
+        button2.pack(pady=5, padx=5)
+
 
 
 class GamePlay(tk.Frame):
@@ -118,6 +123,7 @@ class GamePlay(tk.Frame):
 
         e.pack(pady=30, padx=30)
 
+
         triesLeft = StringVar()
         triesLeft.set(logic.triesLeft)
 
@@ -129,9 +135,9 @@ class GamePlay(tk.Frame):
 
         # Rebuild function takes care of validating, rebuilding ui and navigation.
         def rebuild():
-
+            guess = e.get()
             if logic.triesLeft >= 0:
-                if e.get() != "":
+                if guess != "" and len(guess) == 1:
                     logic.check_letter(e.get().lower())
                     e_delete()
                     v.set(logic.blanked)
@@ -147,7 +153,7 @@ class GamePlay(tk.Frame):
                         lettersTested.set(logic.totalTested)
                         triesLeft.set(logic.triesLeft)
                         mixer.init()
-                        mixer.music.load('win.mp3')
+                        mixer.music.load('audio/win.mp3')
                         mixer.music.play()
 
             if logic.triesLeft <= 0:
@@ -162,7 +168,7 @@ class GamePlay(tk.Frame):
                 triesLeft.set(logic.triesLeft)
                 controller.user.reset()
                 mixer.init()
-                mixer.music.load('lose.mp3')
+                mixer.music.load('audio/lose.mp3')
                 mixer.music.play()
 
         submitButton = Button(self, text="Submit", command=lambda: rebuild(), height=2, width=10, fg="white",
@@ -188,7 +194,7 @@ class GamePlay(tk.Frame):
             triesLeft.set(logic.triesLeft)
             controller.user.reset()
             mixer.init()
-            mixer.music.load('lose.mp3')
+            mixer.music.load('audio/lose.mp3')
             mixer.music.play()
 
         quitButton = Button(self, text="Quit", height=2, width=10, command=lambda: multifunction(), fg="white",

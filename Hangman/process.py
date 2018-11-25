@@ -15,7 +15,7 @@ class logic(object):
         self.wrong = []
         self.points = 0
         self.wrongCount = 0
-        self.triesLeft = 15
+        self.triesLeft = 10
         self.totalTested = ""
         self.requiredPoints = 0
         self.abcd = "abcdefghijklmnopqrstuvwxyz-"
@@ -26,6 +26,7 @@ class logic(object):
         word = rw.random_word()
         self.word = word.lower()
 
+        # To show word on terminal for demo purposes only
         print(self.word)
 
     # Makes Blanked word version
@@ -47,14 +48,14 @@ class logic(object):
         if letterGuess not in self.wrong and letterGuess not in self.correct:
             if letterGuess in self.word:
                 mixer.init()
-                mixer.music.load('correct.mp3')
+                mixer.music.load('audio/correct.mp3')
                 mixer.music.play()
                 self.correct.append(letterGuess)
                 self.points += 1
             else:
                 self.wrong.append(letterGuess)
                 mixer.init()
-                mixer.music.load('wrong.mp3')
+                mixer.music.load('audio/wrong.mp3')
                 mixer.music.play()
                 self.wrongCount += 1
                 self.triesLeft -= 1
@@ -98,7 +99,7 @@ class logic(object):
         self.wrong = []
         self.points = 0
         self.wrongCount = 0
-        self.triesLeft = 15
+        self.triesLeft = 10
         self.totalTested = ""
         self.requiredPoints = 0
         self.get_word()

@@ -21,7 +21,7 @@ class User(object):
         self.points = 0
 
 
-class IO():
+class IO(object):
 
     def __init__(self):
 
@@ -111,4 +111,4 @@ class IO():
 
 
         except IOError:
-            print("File will be created")
+            print("File will be created once first round is played")
