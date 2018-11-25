@@ -100,7 +100,7 @@ class GamePlay(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
 
-        label = tk.Label(self, text="GUESS THE WORD IF U CAN!", font=LARGE_FONT, fg="green")
+        label = tk.Label(self, text="GUESS THE WORD IF YOU CAN!", font=LARGE_FONT, fg="green")
         label.pack(pady=10, padx=10)
 
         # Instantiates logic class
@@ -200,7 +200,7 @@ class LoosingPage(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
 
-        label = tk.Label(self, text="YOU LOOSE! HAHAHAHAHAHA", font=LARGE_FONT, fg="red")
+        label = tk.Label(self, text="YOU LOSE!! HAHAHAHAHAHA LOSER!", font=LARGE_FONT, fg="red")
         label.pack(pady=10, padx=10)
 
         v = StringVar()
@@ -229,7 +229,7 @@ class WinningPage(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
 
-        label = tk.Label(self, text="YOU WIN YAY!", font=LARGE_FONT, fg="green")
+        label = tk.Label(self, text="YOU WIN YAY! CONGRATS!", font=LARGE_FONT, fg="green")
         label.pack(pady=10, padx=10)
 
         button = tk.Button(self, text="Continue", command=lambda: controller.show_frame(GamePlay), fg="white",
