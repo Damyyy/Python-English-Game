@@ -1,1 +1,1 @@
-{"no points": 0, "mmm": 1, "momomo": 4, "nn": 0, "uuu": 0, "quitter": 0, "no": 0, "yy": 3, "jjj": 2, "mo": 0, "mozes": 8, "uu": 5, "mmmmm": 5, "momo": 4}
+{"uu": 5, "yy": 3, "mmmmm": 5, "jjj": 2, "mo": 0, "no points": 0, "mmm": 1, "uuu": 0, "mozes": 8, "nn": 0, "momo": 4, "no": 0, "final1": 10, "momomo": 4, "quitter": 0}

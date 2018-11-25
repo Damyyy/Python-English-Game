@@ -1,11 +1,5 @@
-from random_word import RandomWords
+from random_words import RandomWords
 from pygame import mixer
-
-
-# Other Modules
-
-
-# from PyDictionary import PyDictionary
 
 
 class logic(object):
@@ -28,9 +22,9 @@ class logic(object):
 
     # Gets Random Word
     def get_word(self):
-        r = RandomWords()
-        w = r.get_random_word(hasDictionaryDef="true", minLength=5, maxLength=5)
-        self.word = w.lower()
+        rw = RandomWords()
+        word = rw.random_word()
+        self.word = word.lower()
 
         print(self.word)
 
@@ -57,9 +51,6 @@ class logic(object):
                 mixer.music.play()
                 self.correct.append(letterGuess)
                 self.points += 1
-
-
-
             else:
                 self.wrong.append(letterGuess)
                 mixer.init()

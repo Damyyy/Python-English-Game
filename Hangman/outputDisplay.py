@@ -74,7 +74,9 @@ class UserNamePage(tk.Frame):
             # user = file_io.User()
 
             # If user tries to enter an empty name, it will not continue
-            if e.get() != '':
+            # Name ensure name is between 5 to 10 characters
+            name = e.get()
+            if name != '' and len(name) > 5 and len(name) < 10:
                 controller.user.setName(e.get())
                 e_delete()
                 controller.user.test()
@@ -85,6 +87,9 @@ class UserNamePage(tk.Frame):
 
         e = Entry(self)
         e.pack(pady=10, padx=10)
+
+        label2 = tk.Label(self, text="please ensure name is between 5 to 10 characters long", fg="green")
+        label2.pack(pady=10, padx=10)
 
         button = tk.Button(self, text="Continue", command=lambda: multiFunction(), fg="green", height=2, width=10)
 
@@ -124,7 +129,6 @@ class GamePlay(tk.Frame):
 
         # Rebuild function takes care of validating, rebuilding ui and navigation.
         def rebuild():
-            
 
             if logic.triesLeft >= 0:
                 if e.get() != "":
@@ -134,7 +138,6 @@ class GamePlay(tk.Frame):
                     triesLeft.set(logic.triesLeft)
                     logic.tested_letters()
                     lettersTested.set(logic.totalTested)
-
 
                     if logic.points == logic.requiredPoints:
                         controller.user.setPoints(logic.points)
@@ -146,7 +149,6 @@ class GamePlay(tk.Frame):
                         mixer.init()
                         mixer.music.load('win.mp3')
                         mixer.music.play()
-
 
             if logic.triesLeft <= 0:
                 controller.user.setPoints(logic.points)
@@ -162,8 +164,6 @@ class GamePlay(tk.Frame):
                 mixer.init()
                 mixer.music.load('lose.mp3')
                 mixer.music.play()
-        
-            
 
         submitButton = Button(self, text="Submit", command=lambda: rebuild(), height=2, width=10, fg="white",
                               bg='green')
@@ -202,7 +202,6 @@ class LoosingPage(tk.Frame):
 
         label = tk.Label(self, text="YOU LOOSE! HAHAHAHAHAHA", font=LARGE_FONT, fg="red")
         label.pack(pady=10, padx=10)
-
 
         v = StringVar()
         v.set(controller.correctWord.correctWord)
