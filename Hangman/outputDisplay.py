@@ -1,11 +1,11 @@
 import tkinter as tk
-
 from tkinter import *
 from pygame import mixer
 
 import process
 import file_io
 
+# One of the standard assessable to all classes
 LARGE_FONT = ("Verdana", 12)
 
 
@@ -76,7 +76,7 @@ class UserNamePage(tk.Frame):
             # If user tries to enter an empty name, it will not continue
             # Name ensure name is between 5 to 10 characters
             name = e.get()
-            if name != '' and len(name) > 5 and len(name) < 10:
+            if name != '' and len(name) >= 5 and len(name) <= 10:
                 controller.user.setName(e.get())
                 e_delete()
                 controller.user.test()

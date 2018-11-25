@@ -15,7 +15,7 @@ class logic(object):
         self.wrong = []
         self.points = 0
         self.wrongCount = 0
-        self.triesLeft = 15
+        self.triesLeft = 10
         self.totalTested = ""
         self.requiredPoints = 0
         self.abcd = "abcdefghijklmnopqrstuvwxyz-"
@@ -26,6 +26,7 @@ class logic(object):
         word = rw.random_word()
         self.word = word.lower()
 
+        # To show word on terminal for demo purposes only
         print(self.word)
 
     # Makes Blanked word version
@@ -98,7 +99,7 @@ class logic(object):
         self.wrong = []
         self.points = 0
         self.wrongCount = 0
-        self.triesLeft = 15
+        self.triesLeft = 10
         self.totalTested = ""
         self.requiredPoints = 0
         self.get_word()
